@@ -5,3 +5,5 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+  flyway:
+    validate-migration-naming: true

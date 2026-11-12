@@ -1,4 +1,6 @@
 -- 재고 관리 스키마 (PostgreSQL)
+-- 마이그레이션(src/main/resources/db/migration)을 모두 실행한 뒤의 현재 스키마 전체다.
+-- 스키마를 바꾸면 새 마이그레이션 파일을 더하고 이 파일도 같이 고친다.
 
 CREATE TABLE product
 (
