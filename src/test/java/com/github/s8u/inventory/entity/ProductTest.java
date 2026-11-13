@@ -30,6 +30,15 @@ class ProductTest {
         }
 
         @Test
+        void 수량이_0_이하면_예외를_던지고_재고는_그대로다() {
+            Product product = product(10);
+
+            assertThrows(IllegalArgumentException.class, () -> product.increaseQuantity(0));
+            assertThrows(IllegalArgumentException.class, () -> product.increaseQuantity(-1));
+            assertEquals(10, product.getQuantity());
+        }
+
+        @Test
         void 늘린_재고가_int_최대값과_같으면_늘어난다() {
             Product product = product(Integer.MAX_VALUE - 1);
 
@@ -61,6 +70,15 @@ class ProductTest {
             product.decreaseQuantity(3);
 
             assertEquals(7, product.getQuantity());
+        }
+
+        @Test
+        void 수량이_0_이하면_예외를_던지고_재고는_그대로다() {
+            Product product = product(10);
+
+            assertThrows(IllegalArgumentException.class, () -> product.decreaseQuantity(0));
+            assertThrows(IllegalArgumentException.class, () -> product.decreaseQuantity(-1));
+            assertEquals(10, product.getQuantity());
         }
 
         @Test

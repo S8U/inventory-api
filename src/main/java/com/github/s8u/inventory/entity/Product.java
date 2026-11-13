@@ -58,6 +58,8 @@ public class Product {
      * 늘린 재고가 int 최대값을 넘으면 예외를 던진다.
      */
     public void increaseQuantity(int quantity) {
+        if (quantity <= 0)
+            throw new IllegalArgumentException("입고 수량은 1 이상이어야 합니다. (입고 요청 %d개)".formatted(quantity));
         // this.quantity + quantity로 비교하면 더하는 순간 int가 넘쳐 음수가 되므로 뺄셈으로 비교한다
         if (quantity > Integer.MAX_VALUE - this.quantity)
             throw new BusinessException(
@@ -74,6 +76,8 @@ public class Product {
      * 재고보다 많이 줄이면 예외를 던진다.
      */
     public void decreaseQuantity(int quantity) {
+        if (quantity <= 0)
+            throw new IllegalArgumentException("출고 수량은 1 이상이어야 합니다. (출고 요청 %d개)".formatted(quantity));
         if (quantity > this.quantity)
             throw new BusinessException(
                     ErrorCode.PRODUCT_STOCK_INSUFFICIENT,
