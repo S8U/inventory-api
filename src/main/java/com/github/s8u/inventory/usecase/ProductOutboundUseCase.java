@@ -10,12 +10,14 @@ import com.github.s8u.inventory.repository.ProductStockHistoryRepository;
 import com.github.s8u.inventory.usecase.dto.command.ProductOutboundCommand;
 import com.github.s8u.inventory.usecase.dto.result.ProductOutboundResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 상품 출고
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductOutboundUseCase {
@@ -41,6 +43,11 @@ public class ProductOutboundUseCase {
                 beforeQuantity,
                 product.getQuantity()
         ));
+
+        log.info(
+                "Outbound completed sku={}, quantity={}, before={}, after={}",
+                product.getSku(), command.quantity(), beforeQuantity, product.getQuantity()
+        );
 
         return ProductOutboundResult.from(product);
     }

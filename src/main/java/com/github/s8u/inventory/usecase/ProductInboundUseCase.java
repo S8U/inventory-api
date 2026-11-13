@@ -10,6 +10,7 @@ import com.github.s8u.inventory.repository.ProductStockHistoryRepository;
 import com.github.s8u.inventory.usecase.dto.command.ProductInboundCommand;
 import com.github.s8u.inventory.usecase.dto.result.ProductInboundResult;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 없는 SKU면 재고 0으로 상품을 등록한 뒤 입고한다.
  * 이미 있는 SKU면 상품명을 받아도 바꾸지 않는다.
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductInboundUseCase {
@@ -50,6 +52,11 @@ public class ProductInboundUseCase {
                 beforeQuantity,
                 product.getQuantity()
         ));
+
+        log.info(
+                "Inbound completed sku={}, quantity={}, before={}, after={}",
+                product.getSku(), command.quantity(), beforeQuantity, product.getQuantity()
+        );
 
         return ProductInboundResult.from(product);
     }
